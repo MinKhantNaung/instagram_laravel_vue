@@ -32,7 +32,7 @@ if (iconString.value === 'Log out') icon = Menu
 </script>
 
 <template>
-    <div class="w-full xl:inline-block xl:hover:bg-gray-100 p-2 rounded-full transition duration-300 ease-in-out">
+    <div class="w-full xl:inline-block xl:hover:bg-gray-100 p-2 rounded-full transition duration-300 ease-in-out cursor-pointer">
         <div class="flex items-center">
             <img v-if="iconString === 'Profile'" :class="{ 'mr-1': iconString === 'Profile' }"
                 class="rounded-full ml-[2px] w-[30px] cursor-pointer" src="https://picsum.photos/id/50/300/320">
