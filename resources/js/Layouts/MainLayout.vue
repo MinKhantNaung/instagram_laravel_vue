@@ -13,6 +13,7 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import AccountPlusOutline from 'vue-material-design-icons/AccountPlusOutline.vue'
 
 import MenuItem from '@/Components/MenuItem.vue'
+import CreatePostOverlay from '@/Components/CreatePostOverlay.vue'
 
 const showCreatePost = ref(false)
 </script>
@@ -166,4 +167,6 @@ const showCreatePost = ref(false)
         </div>
         <!-- Bottom Nav section end -->
     </div>
+
+    <CreatePostOverlay v-if="showCreatePost" @close="showCreatePost = false" />
 </template>
