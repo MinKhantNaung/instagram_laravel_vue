@@ -75,7 +75,17 @@ onMounted(() => {
 
                 <LikeSection />
 
+                <div class="text-black font-extrabold py-1">3 Likes</div>
+                <div>
+                    <span class="text-black font-extrabold">NAME HERE</span>
+                    this is some text here
+                </div>
+                <button class="text-gray-500 font-extrabold py-1">
+                    View all 4 comments
+                </button>
             </div>
+
+            <div class="pb-20"></div>
 
         </div>
     </MainLayout>

@@ -97,7 +97,12 @@ const closeOverlay = () => {
                     <div v-if="!fileDisplay" class="flex flex-col items-center mx-auto">
                         <label for="file"
                             class="hover:bg-blue-700 bg-blue-500 rounded-lg p-2.5 text-white font-extrabold cursor-pointer">
-                            Select From Computer
+                            <span class="lg:block hidden">
+                                Select From Computer
+                            </span>
+                            <span class="block lg:hidden">
+                                Select Image
+                            </span>
                         </label>
                         <input @input="getUploadedImage($event)" type="file" id="file" class="hidden" />
                         <div v-if="error && error.file" class="text-red-500 text-center p-2 font-extrabold">
