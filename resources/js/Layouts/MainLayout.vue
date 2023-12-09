@@ -88,7 +88,7 @@ const showCreatePost = ref(false)
 
         <!-- Main Layout start -->
         <div
-            class="flex lg:justify-between bg-white h-full w-[100%-280p] xl:pl-[280px] lg:pl-[100px] md:pl-[80px] overflow-auto">
+            class="flex lg:justify-between bg-white h-full w-[100%-280px] xl:pl-[280px] lg:pl-[100px] md:pl-[20px] overflow-auto">
             <div :class="$page.url === '/' ? 'lg:w-8/12 w-full' : 'max-w-[1200px]'" class="mx-auto md:pt-6 pt-20">
                 <main>
                     <slot />

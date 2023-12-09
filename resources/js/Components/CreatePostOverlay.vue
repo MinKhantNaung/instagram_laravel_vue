@@ -66,7 +66,6 @@ const createPostFunc = () => {
         },
         onSuccess: () => {
             closeOverlay()
-            emit('close')
         }
     })
 }
