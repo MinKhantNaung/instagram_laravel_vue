@@ -23,7 +23,7 @@ const showCreatePost = ref(false)
 
         <!-- Top Nav START -->
         <div v-if="$page.url === '/'" id="top-nav-home"
-            class="fixed z-38 md:hidden block w-full bg-white h-[61px] border-b border-b-gray-300">
+            class="fixed z-50 md:hidden block w-full bg-white h-[61px] border-b border-b-gray-300">
             <div class="flex items-center justify-between h-full">
                 <Link href="/">
                 <img src="/insta-logo.png" alt="" class="w-[105px] ml-6 cursor-pointer">
@@ -42,12 +42,12 @@ const showCreatePost = ref(false)
         </div>
 
         <div v-if="$page.url !== '/'" id="top-nav-user"
-            class="md:hidden fixed flex items-center justify-between z-30 w-full bg-white h-[61px] border-b border-b-gray-300">
+            class="md:hidden fixed flex items-center justify-between z-50 w-full bg-white h-[61px] border-b border-b-gray-300">
             <Link href="/" class="px-4">
             <ChevronLeft :size="30" class="cursor-pointer" />
+            </Link>
             <div class="font-extrabold text-lg">NAME HERE</div>
             <AccountPlusOutline :size="30" class="cursor-pointer px-4" />
-            </Link>
         </div>
         <!-- Top Nav END -->
 
