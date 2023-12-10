@@ -2,6 +2,7 @@
 import { reactive, ref, toRefs } from 'vue';
 import { router } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
+import ContentOverlay from '@/Components/ContentOverlay.vue'
 
 import Cog from 'vue-material-design-icons/Cog.vue'
 import Grid from 'vue-material-design-icons/Grid.vue'
@@ -45,7 +46,7 @@ const getUploadedImage = (e) => {
                     <img class="rounded-full object-fit md:w-[200px] w-[100px] cursor-pointer"
                         src="https://picsum.photos/id/129/200/200">
                 </label>
-                <input @input="getUploadedImage()" type="file" id="file-user" class="hidden">
+                <input @input="getUploadedImage($event)" type="file" id="file-user" class="hidden">
 
                 <div class="ml-6 w-full">
                     <div class="flex items-center md:mb-8 mb-5">
@@ -131,6 +132,11 @@ const getUploadedImage = (e) => {
                         <div class="ml-2 -mb-[1px] text-gray-900">TAGGED</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="grid md:gap-4 gap-1 grid-cols-3 relative">
+                <!-- for user information passing -->
+                <ContentOverlay />
             </div>
         </div>
     </MainLayout>
