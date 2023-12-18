@@ -1,33 +1,22 @@
 <?php
 
 namespace App\Services;
-use Image;
+
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
-    public function updateFile($model, $request, $type)
+    public function updateFile($model, $request, $type, $folder)
     {
         if(!empty($model->file)) {
-            $current_file = public_path() . $model->file;
-
-            if(file_exists($current_file) && $current_file != public_path() .  '/user-placeholder.png') {
-                unlink($current_file); // delete
-            }
+            Storage::delete('public/images/' . $model->file);
         }
 
-        $file = null;
-        if($type == 'user') {
-            $file = Image::make($request->file('file'))->resize(400, 400);
-        } else {
-            $file = Image::make($request->file('file'));
-        }
+        $file_name = uniqid() . '_' . $request->file('file')->getClientOriginalName();
 
-        $ext = $request->file('file');
-        $extension = $ext->getClientOriginalExtension();
-        $name = time() . '_' . $extension;
-        $file->save(public_path() . '/file/' . $name);
+        $request->file('file')->storeAs($folder, $file_name, 'public');
 
-        $model->file = '/file/' . $name;
+        $model->file = $file_name;
 
         return $model;
     }

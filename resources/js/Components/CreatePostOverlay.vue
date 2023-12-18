@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, usePage } from "@inertiajs/vue3";
+import { router, useForm, usePage } from "@inertiajs/vue3";
 import { reactive, ref } from "vue";
 
 import Close from "vue-material-design-icons/Close.vue";
@@ -87,7 +87,7 @@ const closeOverlay = () => {
             <div class="flex items-center justify-between w-full rounded-t-xl p-3 border-b border-b-gray-300">
                 <ArrowLeft @click="closeOverlay()" :size="30" fillColor="#000000" />
                 <div class="text-lg font-extrabold">New reel</div>
-                <button class="text-lg text-blue-500 hover:text-gray-900 font-extrabold">
+                <button @click="createPostFunc" class="text-lg text-blue-500 hover:text-gray-900 font-extrabold">
                     Share
                 </button>
             </div>
