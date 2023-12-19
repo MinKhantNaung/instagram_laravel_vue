@@ -35,7 +35,7 @@ class PostController extends Controller
         $post = Post::find($id);
 
         if(!empty($post->file)) {
-            Storage::delete('public/images/' . $post->file);
+            Storage::delete('public/post_images/' . $post->file);
         }
 
         $post->delete();
