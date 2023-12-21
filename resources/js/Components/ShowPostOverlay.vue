@@ -33,73 +33,78 @@ const textareaInput = (e) => {
         <button @click="$emit('closeOverlay')" class="absolute right-3">
             <Close :size="27" fillColor="#FFFFFF" />
         </button>
-
         <div class="max-w-6xl h-[calc(100%-100px)] mx-auto mt-10 bg-white rounded-xl">
             <div class="w-full md:flex h-full overflow-auto rounded-xl">
                 <div class="flex items-center bg-black w-full">
-                    <img class="rounded-xl min-w-[400px] p-4 mx-auto" src="https://picsum.photos/id/54/300/320" />
+                    <img class="rounded-xl min-w-[400px] h-full p-4 mx-auto object-contain"
+                        :src="`storage/post_images/${post.file}`" />
                 </div>
 
                 <div class="md:max-w-[500px] w-full relative">
                     <div class="flex items-center justify-between p-3 border-b">
                         <div class="flex items-center">
-                            <img class="rounded-full w-[38px] h-[38px]" src="https://picsum.photos/id/54/300/320" alt="">
-                            <div class="ml-4 font-extrabold text-[15px]">NAME HERE</div>
+                            <img class="rounded-full w-[38px] h-[38px]" :src="`storage/user_images/${post.user.file}`"
+                                alt="">
+                            <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                             <div class="flex items-center text-[15px] text-gray-500">
                                 <span class="-mt-5 ml-2 mr-[5px] text-[35px]">.</span>
-                                <div>DATE HERE</div>
+                                <div>{{ post.created_at }}</div>
                             </div>
                         </div>
                         <button>
-                            <DotsHorizontal class="cursor-pointer" :size="27" />
+                            <DotsHorizontal v-if="user.id == post.user.id"
+                                @click.prevent="deleteType = 'post'; id = post.id" class="cursor-pointer" :size="27" />
                         </button>
                     </div>
 
                     <div class="overflow-y-auto h-[calc(100%-170px)]">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center relative">
-                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]"
-                                    src="https://picsum.photos/id/54/300/320" alt="">
+                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]" :src="post.user.file" alt="">
                                 <div class="ml-14">
                                     <span class="font-extrabold text-[15px] mr-2">
-                                        NAME HERE
+                                        {{ post.user.name }}
                                     </span>
                                     <span class="text-[15px] text-gray-900">
-                                        THIS IS A COMMENT
+                                        {{ post.text }}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-3">
+                        <div v-for="comment in post.comments" :key="comment.id" class="p-3">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <img class="rounded-full w-[38px] h-[38px]" src="https://picsum.photos/id/54/300/320"
-                                        alt="">
+                                    <img class="rounded-full w-[38px] h-[38px]"
+                                        :src="`storage/user_images/${comment.user.file}`" alt="">
                                     <div class="ml-4 font-extrabold text-[15px]">
-                                        NAME HERE
-                                        <span class="font-light text-gray-700 text-sm">DATE HERE</span>
+                                        {{ comment.user.name }}
+                                        <span class="font-light text-gray-700 text-sm">{{ comment.created_at }}</span>
                                     </div>
                                 </div>
 
-                                <DotsHorizontal class="cursor-pointer" :size="27" />
+                                <DotsHorizontal v-if="user.id === comment.user.id"
+                                    @click.prevent="deleteType = 'comment'; id = comment.id" class="cursor-pointer"
+                                    :size="27" />
                             </div>
 
                             <div class="text-[13px] pl-[55px]">
-                                THIS COMMENT SECTION
+                                {{ comment.text }}
                             </div>
                         </div>
+
                         <div class="pb-16 md:hidden"></div>
                     </div>
 
-                    <LikeSection class="px-2 border-t mb-2" />
+                    <LikeSection v-if="post" @like="$emit('updateLike')" :post="post" class="px-2 border-t mb-2" />
 
                     <div class="absolute flex border bottom-0 w-full max-h-[200px] bg-white overflow-auto">
                         <EmoticonHappyOutline class="pl-3 pt-[10px]" :size="30" />
                         <textarea ref="textarea" :onInput="textareaInput" v-model="comment" placeholder="Add a comment..."
                             rows="1"
                             class="w-full border-0 mt-2 mb-2 text-sm z-50 focus:ring-0 text-gray-600 text-[18px]"></textarea>
-                        <button v-if="comment" class="text-blue-600 font-extrabold pr-4">
+                        <button v-if="comment" @click.prevent="$emit('addComment', { post, user, comment }); comment = ''"
+                            class="text-blue-600 font-extrabold pr-4">
                             Post
                         </button>
                     </div>
@@ -108,5 +113,9 @@ const textareaInput = (e) => {
         </div>
     </div>
 
-    <ShowPostOptionOverlay v-if="deleteType" @close="deleteType = false" />
+    <ShowPostOptionOverlay v-if="deleteType" :deleteType="deleteType" :id="id" @deleteSelected="$emit('deleteSelected', {
+        deleteType: deleteType,
+        id: id,
+        post: post,
+    }); deleteType = null; id = null" @close="deleteType = null; id = null" />
 </template>

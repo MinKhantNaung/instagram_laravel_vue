@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         return Inertia::render('Home', [
             'posts' => new PostsResource($posts),
-            'all_users' => User::all()
+            'allUsers' => User::all()
         ]);
     }
 }

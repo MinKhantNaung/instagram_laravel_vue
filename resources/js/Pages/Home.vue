@@ -37,14 +37,17 @@ onMounted(() => {
         <div class="mx-auto lg:pl-0 md:pl-[80px] pl-0">
             <carousel v-model="currentSlide" :items-to-show="windowWidth >= 768 ? 8 : 6" :items-to-scroll="4"
                 :wrap-around="true" :transition="500" snapAlign="start" class="max-w-[700px] mx-auto">
-                <slide v-for="slide in 10" :key="slide">
-                    <Link href="/" class="relative mx-auto text-center mt-4 px-2 cursor-pointer">
+                <slide v-for="user in allUsers" :key="user.id">
+                    <Link :href="route('users.show', { 'id': user.id })"
+                        class="relative mx-auto text-center mt-4 px-2 cursor-pointer">
                     <div
                         class="absolute z-[-1] -top-[5px] left-[4px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500">
                         <div class="rounded-full ml-[3px] mt-[3px] w-[58px] h-[58px] bg-white"></div>
                     </div>
-                    <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" src="https://picsum.photos/id/54/300/320">
-                    <div class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden">NAME HERE</div>
+                    <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" :src="`storage/user_images/${user.file}`">
+                    <div class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden">
+                        {{ user.name }}
+                    </div>
                     </Link>
                 </slide>
 
@@ -55,16 +58,16 @@ onMounted(() => {
             </carousel>
 
             <!-- SHOW POSTS -->
-            <div id="posts" class="px-4 max-w-[600px] mx-auto mt-10">
+            <div id="posts" v-for="post in posts.data" :key="post.id" class="px-4 max-w-[600px] mx-auto mt-10">
                 <div class="flex items-center justify-between py-2">
                     <div class="flex items-center">
                         <Link href="/" class="flex items-center">
-                        <img class="rounded-full w-[38px] h-[38px]" src="https://picsum.photos/id/200/300/320">
-                        <div class="ml-4 font-extrabold text-[15px]">NAME HERE</div>
+                        <img :src="`storage/user_images/${post.user.file}`" class="rounded-full w-[38px] h-[38px]">
+                        <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                         </Link>
                         <div class="flex items-center text-[15px] text-gray-500">
                             <span class="mt-5 ml-2 mr-[5px] text-[35px]">.</span>
-                            <div>DATE HERE</div>
+                            <div>{{ post.created_at }}</div>
                         </div>
                     </div>
 
@@ -72,18 +75,18 @@ onMounted(() => {
                 </div>
 
                 <div class="bg-black rounded-lg w-full min-h-[400px] flex items-center">
-                    <img class="mx-auto w-full" src="https://picsum.photos/id/54/300/320">
+                    <img class="mx-auto w-full" :src="`storage/post_images/${post.file}`">
                 </div>
 
-                <LikeSection />
+                <LikeSection :post="post" />
 
-                <div class="text-black font-extrabold py-1">3 Likes</div>
+                <div class="text-black font-extrabold py-1">{{ post.likes.length }} Likes</div>
                 <div>
-                    <span class="text-black font-extrabold">NAME HERE</span>
-                    this is some text here
+                    <span class="text-black font-extrabold">{{ post.user.name }}</span>
+                    {{ post.text }}
                 </div>
-                <button @click.prevent="openOverlay = true" class="text-gray-500 font-extrabold py-1">
-                    View all 4 comments
+                <button @click.prevent="openOverlay = true; currentPost = post" class="text-gray-500 font-extrabold py-1">
+                    View all {{ post.comments.length }} comments
                 </button>
             </div>
 
@@ -92,7 +95,8 @@ onMounted(() => {
         </div>
     </MainLayout>
 
-    <ShowPostOverlay v-if="openOverlay" :post="currentPost" @closeOverlay="openOverlay = false" />
+    <ShowPostOverlay v-if="openOverlay" :post="currentPost" @addComment="addComment($event)" @updateLike="updateLike($event)"
+        @deleteSelected="deleteSelected($event)" @closeOverlay="openOverlay = false" />
 </template>
 
 <style scoped>

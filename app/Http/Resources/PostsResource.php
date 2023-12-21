@@ -13,11 +13,12 @@ class PostsResource extends JsonResource
                 'id' => $post->id,
                 'text' => $post->text,
                 'file' => $post->file,
-                'created_at' => $post->created_at->format(' M D Y'),
+                'created_at' => $post->created_at->diffForHumans(),
                 'comments' => $post->comments->map(function ($comment) {
                     return [
                         'id' => $comment->id,
                         'text' => $comment->text,
+                        'created_at' => $comment->created_at->format(' M d Y'),
                         'user' => [
                             'id' => $comment->user->id,
                             'name' => $comment->user->name,
