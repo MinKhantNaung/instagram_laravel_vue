@@ -14,4 +14,16 @@ class Post extends Model
         'text',
         'file'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
+    }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 }
