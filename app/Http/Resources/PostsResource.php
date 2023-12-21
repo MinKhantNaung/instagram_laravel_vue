@@ -8,7 +8,7 @@ class PostsResource extends JsonResource
 {
     public function toArray($request)
     {
-        return $this->collection->map(function ($post) {
+        return $this->map(function ($post) {
             return [
                 'id' => $post->id,
                 'text' => $post->text,
