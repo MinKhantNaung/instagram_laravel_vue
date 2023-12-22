@@ -87,6 +87,27 @@ const updateLike = (object) => {
         })
     }
 }
+
+const deleteFunc = (object) => {
+    let url = ''
+
+    if(object.deleteType === 'post') {
+        url = `/posts/${object.id}`;
+        // openOverlay = false / Don't set openOverlay = false because it will close modal and route will call
+    } else {
+        url = `/comments/${object.id}`
+    }
+
+    router.delete(url, {
+        preserveState: true,
+        preserveScroll: true,
+        onFinish: () => updatePost(object)
+    })
+
+    if(object.deleteType === 'post') {
+        openOverlay = false
+    }
+}
 </script>
 
 <template>
@@ -155,7 +176,7 @@ const updateLike = (object) => {
     </MainLayout>
 
     <ShowPostOverlay v-if="openOverlay" :post="currentPost" @addComment="addComment($event)"
-        @updateLike="updateLike($event)" @deleteSelected="deleteSelected($event)" @closeOverlay="openOverlay = false" />
+        @updateLike="updateLike($event)" @deleteSelected="deleteFunc($event)" @closeOverlay="openOverlay = false" />
 </template>
 
 <style scoped>
