@@ -70,6 +70,7 @@ const updateLike = (object) => {
             id: id
         }), {
             preserveState: true,
+            preserveScroll: true,
             onFinish: () => {
                 updatePost(object)
             }
@@ -79,6 +80,7 @@ const updateLike = (object) => {
             post_id: object.post.id
         }, {
             preserveState: true,
+            preserveScroll: true,
             onFinish: () => {
                 updatePost(object)
             }
