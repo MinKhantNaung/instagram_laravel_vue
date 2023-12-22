@@ -96,7 +96,7 @@ const textareaInput = (e) => {
                         <div class="pb-16 md:hidden"></div>
                     </div>
 
-                    <LikeSection v-if="post" @like="$emit('updateLike')" :post="post" class="px-2 border-t mb-2" />
+                    <LikeSection v-if="post" @like="$emit('updateLike', $event)" :post="post" class="px-2 border-t mb-2" />
 
                     <div class="absolute flex border bottom-0 w-full max-h-[200px] bg-white overflow-auto">
                         <EmoticonHappyOutline class="pl-3 pt-[10px]" :size="30" />

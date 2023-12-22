@@ -43,12 +43,46 @@ const addComment = (object) => {
 }
 
 const updatePost = (object) => {
-    for(let i = 0; i < posts.value.data.length; i++) {
+    for (let i = 0; i < posts.value.data.length; i++) {
         const post = posts.value.data[i];
 
-        if(post.id === object.post.id) {
+        if (post.id === object.post.id) {
             currentPost.value = post
         }
+    }
+}
+
+const updateLike = (object) => {
+    let deleteLike = false
+    let id = null
+
+    for (let i = 0; i < object.post.likes.length; i++) {
+        const like = object.post.likes[i];
+
+        if (like.user_id === object.user.id && like.post_id === object.post.id) {
+            deleteLike = true
+            id = like.id
+        }
+    }
+
+    if (deleteLike) {
+        router.delete(route('likes.destroy', {
+            id: id
+        }), {
+            preserveState: true,
+            onFinish: () => {
+                updatePost(object)
+            }
+        })
+    } else {
+        router.post(route('likes.store'), {
+            post_id: object.post.id
+        }, {
+            preserveState: true,
+            onFinish: () => {
+                updatePost(object)
+            }
+        })
     }
 }
 </script>
@@ -101,7 +135,7 @@ const updatePost = (object) => {
                     <img class="mx-auto w-full" :src="`storage/post_images/${post.file}`">
                 </div>
 
-                <LikeSection :post="post" />
+                <LikeSection @like="updateLike($event)" :post="post" />
 
                 <div class="text-black font-extrabold py-1">{{ post.likes.length }} Likes</div>
                 <div>
@@ -118,8 +152,8 @@ const updatePost = (object) => {
         </div>
     </MainLayout>
 
-    <ShowPostOverlay v-if="openOverlay" :post="currentPost" @addComment="addComment($event)" @updateLike="updateLike($event)"
-        @deleteSelected="deleteSelected($event)" @closeOverlay="openOverlay = false" />
+    <ShowPostOverlay v-if="openOverlay" :post="currentPost" @addComment="addComment($event)"
+        @updateLike="updateLike($event)" @deleteSelected="deleteSelected($event)" @closeOverlay="openOverlay = false" />
 </template>
 
 <style scoped>
