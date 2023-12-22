@@ -60,7 +60,7 @@ const textareaInput = (e) => {
                     <div class="overflow-y-auto h-[calc(100%-170px)]">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center relative">
-                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]" :src="post.user.file" alt="">
+                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]" :src="`storage/user_images/${post.user.file}`" alt="">
                                 <div class="ml-14">
                                     <span class="font-extrabold text-[15px] mr-2">
                                         {{ post.user.name }}
@@ -100,13 +100,16 @@ const textareaInput = (e) => {
 
                     <div class="absolute flex border bottom-0 w-full max-h-[200px] bg-white overflow-auto">
                         <EmoticonHappyOutline class="pl-3 pt-[10px]" :size="30" />
-                        <textarea ref="textarea" :onInput="textareaInput" v-model="comment" placeholder="Add a comment..."
-                            rows="1"
-                            class="w-full border-0 mt-2 mb-2 text-sm z-50 focus:ring-0 text-gray-600 text-[18px]"></textarea>
-                        <button v-if="comment" @click.prevent="$emit('addComment', { post, user, comment }); comment = ''"
-                            class="text-blue-600 font-extrabold pr-4">
-                            Post
-                        </button>
+                        <form @submit.prevent="$emit('addComment', { post, user, comment }); comment = ''" class="flex w-full">
+                            <!-- It 's ok even you don't use this 'ref="textarea" :onInput="textareaInput" in textarea' -->
+                            <textarea v-model="comment" placeholder="Add a comment..."
+                                rows="1"
+                                class="w-full border-0 mt-2 mb-2 text-sm z-50 focus:ring-0 text-gray-600 text-[18px]"></textarea>
+                            <button type="submit" v-if="comment"
+                                class="text-blue-600 font-extrabold pr-4">
+                                Post
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, toRefs } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import LikeSection from '@/Components/LikeSection.vue'
 // showPostOverlay is for show post and comments when click view comments
@@ -28,6 +28,29 @@ onMounted(() => {
         windowWidth.value = window.innerWidth
     })
 })
+
+const addComment = (object) => {
+    router.post(route('comments.store'), {
+        user_id: object.user.id,
+        post_id: object.post.id,
+        text: object.comment
+    }, {
+        preserveState: true,
+        onFinish: () => {
+            updatePost(object)
+        }
+    })
+}
+
+const updatePost = (object) => {
+    for(let i = 0; i < posts.value.data.length; i++) {
+        const post = posts.value.data[i];
+
+        if(post.id === object.post.id) {
+            currentPost.value = post
+        }
+    }
+}
 </script>
 
 <template>

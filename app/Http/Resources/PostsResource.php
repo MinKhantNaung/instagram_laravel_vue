@@ -18,7 +18,7 @@ class PostsResource extends JsonResource
                     return [
                         'id' => $comment->id,
                         'text' => $comment->text,
-                        'created_at' => $comment->created_at->format(' M d Y'),
+                        'created_at' => $comment->created_at->diffForHumans(),
                         'user' => [
                             'id' => $comment->user->id,
                             'name' => $comment->user->name,
