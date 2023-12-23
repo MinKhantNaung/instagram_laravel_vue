@@ -124,7 +124,7 @@ const deleteFunc = (object) => {
                         class="absolute z-[-1] -top-[5px] left-[4px] rounded-full rotate-45 w-[64px] h-[64px] contrast-[1.3] bg-gradient-to-t from-yellow-300 to-purple-500 via-red-500">
                         <div class="rounded-full ml-[3px] mt-[3px] w-[58px] h-[58px] bg-white"></div>
                     </div>
-                    <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" :src="`storage/user_images/${user.file}`">
+                    <img class="rounded-full w-[56px] h-[56px] -mt-[1px]" :src="`/storage/user_images/${user.file}`">
                     <div class="text-xs mt-2 w-[60px] truncate text-ellipsis overflow-hidden">
                         {{ user.name }}
                     </div>
@@ -142,7 +142,7 @@ const deleteFunc = (object) => {
                 <div class="flex items-center justify-between py-2">
                     <div class="flex items-center">
                         <Link href="/" class="flex items-center">
-                        <img :src="`storage/user_images/${post.user.file}`" class="rounded-full w-[38px] h-[38px]">
+                        <img :src="`/storage/user_images/${post.user.file}`" class="rounded-full w-[38px] h-[38px]">
                         <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                         </Link>
                         <div class="flex items-center text-[15px] text-gray-500">
@@ -155,7 +155,7 @@ const deleteFunc = (object) => {
                 </div>
 
                 <div class="bg-black rounded-lg w-full min-h-[400px] flex items-center">
-                    <img class="mx-auto w-full" :src="`storage/post_images/${post.file}`">
+                    <img class="mx-auto w-full" :src="`/storage/post_images/${post.file}`">
                 </div>
 
                 <LikeSection @like="updateLike($event)" :post="post" />

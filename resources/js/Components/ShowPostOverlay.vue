@@ -37,13 +37,13 @@ const textareaInput = (e) => {
             <div class="w-full md:flex h-full overflow-auto rounded-xl">
                 <div class="flex items-center bg-black w-full">
                     <img class="rounded-xl min-w-[400px] h-full p-4 mx-auto object-contain"
-                        :src="`storage/post_images/${post.file}`" />
+                        :src="`/storage/post_images/${post.file}`" />
                 </div>
 
                 <div class="md:max-w-[500px] w-full relative">
                     <div class="flex items-center justify-between p-3 border-b">
                         <div class="flex items-center">
-                            <img class="rounded-full w-[38px] h-[38px]" :src="`storage/user_images/${post.user.file}`"
+                            <img class="rounded-full w-[38px] h-[38px]" :src="`/storage/user_images/${post.user.file}`"
                                 alt="">
                             <div class="ml-4 font-extrabold text-[15px]">{{ post.user.name }}</div>
                             <div class="flex items-center text-[15px] text-gray-500">
@@ -60,7 +60,7 @@ const textareaInput = (e) => {
                     <div class="overflow-y-auto h-[calc(100%-170px)]">
                         <div class="flex items-center justify-between p-3">
                             <div class="flex items-center relative">
-                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]" :src="`storage/user_images/${post.user.file}`" alt="">
+                                <img class="absolute -top-1 rounded-full w-[38px] h-[38px]" :src="`/storage/user_images/${post.user.file}`" alt="">
                                 <div class="ml-14">
                                     <span class="font-extrabold text-[15px] mr-2">
                                         {{ post.user.name }}
@@ -76,7 +76,7 @@ const textareaInput = (e) => {
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <img class="rounded-full w-[38px] h-[38px]"
-                                        :src="`storage/user_images/${comment.user.file}`" alt="">
+                                        :src="`/storage/user_images/${comment.user.file}`" alt="">
                                     <div class="ml-4 font-extrabold text-[15px]">
                                         {{ comment.user.name }}
                                         <span class="font-light text-gray-700 text-sm">{{ comment.created_at }}</span>

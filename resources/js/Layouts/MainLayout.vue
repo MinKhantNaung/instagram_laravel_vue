@@ -103,7 +103,7 @@ const showCreatePost = ref(false)
                     class="flex items-center justify-between max-w-[300px]">
                 <div class="flex items-center">
                     <img class="rounded-full z-10 w-[58px] h-[58px]"
-                        :src="`storage/user_images/${$page.props.auth.user.file}`">
+                        :src="`/storage/user_images/${$page.props.auth.user.file}`">
                     <div class="pl-4">
                         <div class="text-black font-extrabold">
                             {{ $page.props.auth.user.name }}
@@ -131,7 +131,7 @@ const showCreatePost = ref(false)
                             class="flex items-center justify-between max-w-[300px] pb-2">
                         <div class="flex items-center">
                             <img class="rounded-full z-10 w-[37px] h-[37px]"
-                                :src="`storage/user_images/${randomUser.file}`">
+                                :src="`/storage/user_images/${randomUser.file}`">
                             <div class="pl-4">
                                 <div class="text-black font-extrabold">
                                     {{ randomUser.name }}
@@ -173,7 +173,7 @@ const showCreatePost = ref(false)
             <Plus @click="showCreatePost = true" fillColor="#000000" :size="33" class="cursor-pointer" />
             <AccountOutline fillColor="#000000" :size="33" class="cursor-pointer" />
             <Link :href="route('users.show', { id: $page.props.auth.user.id })">
-            <img class="rounded-full w-[30px] cursor-pointer" :src="`storage/user_images/${$page.props.auth.user.file}`"
+            <img class="rounded-full w-[30px] cursor-pointer" :src="`/storage/user_images/${$page.props.auth.user.file}`"
                 alt="">
             </Link>
         </div>
